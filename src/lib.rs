@@ -5,7 +5,7 @@ pub mod snake;
 
 pub const MAP_SIZE: f32 = 500.0;
 pub const SNAKE_COLOR: Color = Color::WHITE;
-pub const TAIL_COLOR: Color = Color::RED;
+pub const TAIL_COLOR: Color = Color::GRAY;
 pub const FOOD_COLOR: Color = Color::RED;
 pub const BOUNDARY_DIMENSION: f32 = 10.0;
 pub const FRAME_TIME: f64 = 0.1;

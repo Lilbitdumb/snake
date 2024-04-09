@@ -1,8 +1,16 @@
-use std::time::Duration;
-
-use bevy::prelude::*;
-use bevy::time::common_conditions::on_timer;
-use bevy::{input::keyboard::KeyCode, window::PrimaryWindow};
+use bevy::{
+    ecs::{
+        component::Component,
+        entity::Entity,
+        reflect::ReflectComponent,
+        system::{Commands, ResMut, Resource},
+    },
+    prelude::*,
+    reflect::Reflect,
+    sprite::{Sprite, SpriteBundle},
+    time::common_conditions::on_timer,
+    window::PrimaryWindow,
+};
 use bevy_inspector_egui::InspectorOptions;
 
 use crate::{ARENA_HEIGHT, ARENA_WIDTH, SNAKE_COLOR, TAIL_COLOR};
@@ -179,13 +187,13 @@ pub struct SnakePlugin;
 impl Plugin for SnakePlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_snake)
+            .insert_resource(SnakeSegments::default())
             .add_systems(Update, direction_detection)
             .add_systems(
                 Update,
-                snake_movement.run_if(on_timer(Duration::from_millis(10000))),
+                snake_movement.run_if(on_timer(std::time::Duration::from_millis(100))),
             )
             .add_systems(PostUpdate, (size_scaling, position_translation))
-            .init_resource::<SnakeSegments>()
             .register_type::<SnakeHead>()
             .register_type::<Direction>()
             .register_type::<Size>()
