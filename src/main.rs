@@ -1,9 +1,8 @@
 use bevy::{input::common_conditions::input_toggle_active, prelude::*};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use snake::{
-    init_snake,
-    snake::{spawn_segment, Position, SnakePlugin},
-    MAP_SIZE,
+    snake::{SnakeHead, SnakePlugin},
+    MAP_SIZE, SNAKE_COLOR,
 };
 
 fn main() {
@@ -23,21 +22,11 @@ fn main() {
                 .build(),
             WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),
         ))
-        .add_plugins((SnakePlugin))
-        .add_systems(Startup, (setup, init_snake))
-        .add_systems(Update, test_spawn_segments)
+        .add_plugins(SnakePlugin)
         .run();
 }
 
 pub fn setup(mut commands: Commands) {
     let camera = Camera2dBundle::default();
     commands.spawn(camera);
-}
-
-fn test_spawn_segments(commands: Commands, input: Res<ButtonInput<KeyCode>>) {
-    if !input.just_pressed(KeyCode::Space) {
-        return;
-    }
-
-    spawn_segment(commands, Position::default());
 }
