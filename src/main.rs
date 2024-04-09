@@ -14,6 +14,7 @@ pub const TAIL_DIMENSION: f32 = 20.0;
 pub const BOUNDARY_DIMENSION: f32 = 10.0;
 pub const FRAME_TIME: f64 = 0.1;
 use crate::player::Player;
+use crate::player::Direction;
 
 mod player;
 
@@ -24,7 +25,7 @@ fn setup(
     let mut camera = Camera2dBundle::default();
     camera.projection.scaling_mode = ScalingMode::AutoMin { min_width: MAP_SIZE, min_height: MAP_SIZE };      
     commands.spawn(camera);
-
+   
     commands.spawn(        
         (SpriteBundle {
             sprite: Sprite{
@@ -41,10 +42,10 @@ fn setup(
             }, 
             ..default()
             
-        },  
-        Player {speed: 1.0},
-        Name::new("Player"),          
-    ));     
+        },         
+                  
+    )).insert((Player {speed: 100.0}, Name::new("Player")))
+    .insert(Direction::Up);     
     
 }  
 
@@ -66,10 +67,10 @@ fn main() {
       .build(),
     ) 
     .add_plugins(
-        WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),)    
-    
+        WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),)  
+    .add_plugins(PlayerPlugin) 
     .add_systems(Startup, setup) 
-    .add_plugins(PlayerPlugin)          
+              
     .run();      
 }
 
