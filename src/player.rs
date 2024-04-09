@@ -1,7 +1,7 @@
-use bevy::{ecs::query, input::keyboard::KeyCode};
-use bevy::{prelude::*, sprite, transform};
+use bevy::input::keyboard::KeyCode;
+use bevy::prelude::*;
 use bevy_inspector_egui::InspectorOptions;
-use rand::{thread_rng, Rng};
+
 
 #[derive(Component, InspectorOptions, Default, Reflect)]
 #[reflect(Component)]

@@ -5,6 +5,7 @@ use bevy::prelude::*;
 use bevy::input::keyboard::KeyCode;
 use bevy::render::camera::ScalingMode;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use tail::TailPlugin;
 
 pub const MAP_SIZE: f32 = 500.0;
 pub const SNAKE_COLOR: Color = Color::WHITE;
@@ -15,8 +16,11 @@ pub const BOUNDARY_DIMENSION: f32 = 10.0;
 pub const FRAME_TIME: f64 = 0.1;
 use crate::player::Player;
 use crate::player::Direction;
+use crate::tail::TailParent;
+use crate::tail::Tail;
 
 mod player;
+mod tail;
 
 
 fn setup(
@@ -68,9 +72,8 @@ fn main() {
     ) 
     .add_plugins(
         WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),)  
-    .add_plugins(PlayerPlugin) 
-    .add_systems(Startup, setup) 
-              
+    .add_plugins((PlayerPlugin,TailPlugin)) 
+    .add_systems(Startup, setup)              
     .run();      
 }
 
