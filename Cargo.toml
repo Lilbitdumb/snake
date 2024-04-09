@@ -3,30 +3,10 @@ name = "snake"
 version = "0.1.0"
 edition = "2021"
 
-[profile.dev]
-opt-level = 1
-
-[profile.dev.package."*"]
-opt-level = 3
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[workspace]
-resolver = "2" 
-
-[dependencies.uuid]
-version = "1.1.2"
-features = [
-    "v4",                
-    "fast-rng",          
-    "macro-diagnostics", 
-]
-
 [dependencies]
 bevy = "0.13.1"
 rand = "0.8.5"
 bevy-inspector-egui = "0.23.4"
 bevy_asset_loader = { version = "0.20.0", features = ["2d"]}
-bevy_embedded_assets = "0.10.2"
 console_error_panic_hook = "0.1"
 

@@ -605,18 +605,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bevy_embedded_assets"
-version = "0.10.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a4b0bfcdcbd0c59829415ae0756757d50dfdb0c8f324087b4a2daabb3971fbd"
-dependencies = [
- "bevy",
- "cargo-emit",
- "futures-io",
- "futures-lite",
-]
-
-[[package]]
 name = "bevy_encase_derive"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1325,12 +1313,6 @@ dependencies = [
  "slab",
  "thiserror",
 ]
-
-[[package]]
-name = "cargo-emit"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1582e1c9e755dd6ad6b224dcffb135d199399a4568d454bd89fe515ca8425695"
 
 [[package]]
 name = "cc"
@@ -3313,10 +3295,8 @@ dependencies = [
  "bevy",
  "bevy-inspector-egui",
  "bevy_asset_loader",
- "bevy_embedded_assets",
  "console_error_panic_hook",
  "rand",
- "uuid",
 ]
 
 [[package]]
@@ -3626,20 +3606,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a183cf7feeba97b4dd1c0d46788634f6221d87fa961b305bed08c851829efcc0"
 dependencies = [
  "getrandom",
- "rand",
  "serde",
- "uuid-macro-internal",
-]
-
-[[package]]
-name = "uuid-macro-internal"
-version = "1.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9881bea7cbe687e36c9ab3b778c36cd0487402e270304e8b1296d5085303c1a2"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.58",
 ]
 
 [[package]]
