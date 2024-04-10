@@ -20,7 +20,7 @@ fn spawn_food(mut commands: Commands) {
         },        
         ..default()
     })
-    .insert(Food)
+    .insert((Food, Name::new("Food")))
     .insert(Position{
         x: (random::<f32>() * ARENA_WIDTH as f32) as i32,
         y: (random::<f32>() * ARENA_HEIGHT as f32) as i32,
