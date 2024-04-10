@@ -94,14 +94,21 @@ fn spawn_segment(mut commands: Commands, position: Position) -> Entity {
 
 fn direction_detection(mut query: Query<&mut SnakeHead>, input: Res<ButtonInput<KeyCode>>) {
     if let Some(mut snake_head) = query.iter_mut().next() {
-        if input.just_pressed(KeyCode::KeyW) {
-            snake_head.direction = Direction::Up;
-        } else if input.just_pressed(KeyCode::KeyS) {
-            snake_head.direction = Direction::Down;
-        } else if input.just_pressed(KeyCode::KeyA) {
-            snake_head.direction = Direction::Left;
-        } else if input.pressed(KeyCode::KeyD) {
-            snake_head.direction = Direction::Right;
+        match &snake_head.direction {
+            Direction::Up | Direction::Down => {
+                if input.just_pressed(KeyCode::KeyA) {
+                    snake_head.direction = Direction::Left;
+                } else if input.just_pressed(KeyCode::KeyD) {
+                    snake_head.direction = Direction::Right;
+                }
+            }
+            Direction::Left | Direction::Right => {
+                if input.just_pressed(KeyCode::KeyW) {
+                    snake_head.direction = Direction::Up;
+                } else if input.just_pressed(KeyCode::KeyS) {
+                    snake_head.direction = Direction::Down;
+                }
+            }
         }
     }
 }
@@ -191,7 +198,7 @@ impl Plugin for SnakePlugin {
             .add_systems(Update, direction_detection)
             .add_systems(
                 Update,
-                snake_movement.run_if(on_timer(std::time::Duration::from_millis(100))),
+                snake_movement.run_if(on_timer(std::time::Duration::from_millis(150))),
             )
             .add_systems(PostUpdate, (size_scaling, position_translation))
             .register_type::<SnakeHead>()
