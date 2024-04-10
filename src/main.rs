@@ -1,6 +1,8 @@
 use bevy::{input::common_conditions::input_toggle_active, prelude::*};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
-use snake::{snake::SnakePlugin, MAP_SIZE};
+use snake::{food, snake::SnakePlugin, MAP_SIZE};
+use food::FoodPlugin;
+
 
 fn main() {
     App::new()
@@ -20,7 +22,7 @@ fn main() {
             WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),
         ))
         .add_systems(Startup, setup)
-        .add_plugins(SnakePlugin)
+        .add_plugins((SnakePlugin,FoodPlugin))
         .run();
 }
 

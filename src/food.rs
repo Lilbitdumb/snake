@@ -1,39 +1,39 @@
 use bevy::prelude::*;
-use rand::{thread_rng, Rng};
+use rand::random;
+use bevy::time::common_conditions::on_timer;
 
-use crate::{BOUNDARY_DIMENSION, FOOD_COLOR, MAP_SIZE};
+
+
+use crate::{ARENA_HEIGHT, ARENA_WIDTH, FOOD_COLOR};
+use crate::snake::Size;
+use crate::snake::Position;
 
 #[derive(Component)]
-struct Food;
+pub struct Food;
 
-fn spawn_food(mut commands: Commands) {
-    let pos_x = thread_rng().gen_range(
-        (-(MAP_SIZE / 2.0) + (SNAKE_DIMENSION + BOUNDARY_DIMENSION + 50.0)) as f32
-            ..((MAP_SIZE / 2.0) - (SNAKE_DIMENSION + BOUNDARY_DIMENSION + 50.0)) as f32,
-    );
 
-    let pos_y = thread_rng().gen_range(
-        (-(MAP_SIZE / 2.0) + (SNAKE_DIMENSION + BOUNDARY_DIMENSION + 50.0)) as f32
-            ..((500.0 / 2.0) - (SNAKE_DIMENSION + BOUNDARY_DIMENSION + 50.0)) as f32,
-    );
-
+fn spawn_food(mut commands: Commands) { 
     commands.spawn(SpriteBundle {
         sprite: Sprite {
-            color: FOOD_COLOR,
-            custom_size: Some(Vec2::new(10.0, 10.0)),
+            color: FOOD_COLOR,            
             ..default()
-        },
-        transform: Transform {
-            translation: Vec3::new(pos_x, pos_y, 0.0),
-            ..default()
-        },
+        },        
         ..default()
-    });
+    })
+    .insert(Food)
+    .insert(Position{
+        x: (random::<f32>() * ARENA_WIDTH as f32) as i32,
+        y: (random::<f32>() * ARENA_HEIGHT as f32) as i32,
+    })
+    .insert(Size::square(0.5));
 }
+
+
 
 pub struct FoodPlugin;
 impl Plugin for FoodPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_food);
+        app.add_systems(Update, spawn_food.run_if(on_timer(std::time::Duration::from_secs_f64(5.0)))); 
+       
     }
 }
