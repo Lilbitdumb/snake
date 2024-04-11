@@ -1,8 +1,11 @@
 use bevy::{input::common_conditions::input_toggle_active, prelude::*};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use snake::{food, snake::SnakePlugin, MAP_SIZE};
+use bevy::render::camera::ScalingMode;
 use food::FoodPlugin;
+use ui::GameUI;
 
+mod ui;
 
 fn main() {
     App::new()
@@ -22,11 +25,11 @@ fn main() {
             WorldInspectorPlugin::default().run_if(input_toggle_active(false, KeyCode::Escape)),
         ))
         .add_systems(Startup, setup)
-        .add_plugins((SnakePlugin,FoodPlugin))
+        .add_plugins((SnakePlugin,FoodPlugin,GameUI))        
         .run();
 }
 
 pub fn setup(mut commands: Commands) {
-    let camera = Camera2dBundle::default();
+    let camera = Camera2dBundle::default();    
     commands.spawn(camera);
 }
